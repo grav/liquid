@@ -35,9 +35,10 @@
 
 (defn function-typeahead
   []
-  (editor/previous-buffer)
-  (let [funcs (apply concat (for [n (all-ns)] (for [f (keys (ns-publics n))] (str n "/" f))))]
-    (typeaheadapp/run funcs str #(editor/insert (simplify %)))))
+  #?(:clj (do (editor/previous-buffer)
+              (let [funcs (apply concat (for [n (all-ns)] (for [f (keys (ns-publics n))] (str n "/" f))))]
+                (typeaheadapp/run funcs str #(editor/insert (simplify %)))))
+     :cljs (throw (js/Error. "not implemented"))))
 
 (defn activate
   [functions]

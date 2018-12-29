@@ -1,6 +1,6 @@
 (ns dk.salza.liq.apps.findfileapp
   (:require [clojure.string :as str]
-            [clojure.java.io :as io]
+
             [dk.salza.liq.editor :as editor]
             [dk.salza.liq.tools.fileutil :as fileutil]
             #_[dk.salza.liq.coreutil :refer :all]))
@@ -17,7 +17,7 @@
   [path]
   (swap! state assoc
                ::search ""
-               ::path (or path (.getAbsolutePath (io/file "")))
+               ::path (or path (fileutil/absolute ""))
                ::selected nil
                ::hit nil))
 
@@ -79,7 +79,7 @@
 
 (defn- up
   []
-  (swap! state update ::path #(or (.getParent (io/file %)) %))
+  (swap! state update ::path #(or (fileutil/parent %) %))
   (swap! state assoc ::search "")
   (swap! state assoc ::selected nil)
   (next-res)

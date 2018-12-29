@@ -16,7 +16,11 @@
      :cljs (.baseName (node/require "path") filepath)))
 
 (defn parent
-  [filepath])
+  [filepath]
+  #?(:clj (.getParent (io/file filepath))
+     :cljs (let [p (.resolve (node/require "path") filepath "..")]
+             (when (not= "/" p)
+               p))))
   ;; if root return nil
 
 

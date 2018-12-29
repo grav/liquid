@@ -21,8 +21,9 @@
   (:require [dk.salza.liq.slider :as slider]
             [dk.salza.liq.tools.fileutil :as fileutil]
             #_[dk.salza.liq.coreutil :refer :all]
-            [clojure.java.io :as io]
-            [clojure.string :as str]))
+            #?(:clj [clojure.java.io :as io])
+            [clojure.string :as str]
+            #?(:cljs [cljs.nodejs :as node])))
 
 (defn create
   "Creates an empty buffer with the given
@@ -41,7 +42,7 @@
 
 (defn create-slider-from-file
   [path]
-  (if (and (.exists (io/file path)) (.isFile (io/file path)))
+  (if (and (.exists (io/file path)) (fileutil/file? path))
     (let [r (io/reader path)]
       (loop [c (.read r) sl (slider/create)]
         (if (not= c -1)
@@ -59,7 +60,8 @@
    ::slider-undo ()  ;; Conj slider into this when doing changes
    ::slider-stack () ;; To use in connection with undo
    ::filename path
-   ::modified (.lastModified (io/file path))
+   ::modified #?(:clj (.lastModified (io/file path))
+                 :cljs (.-mtime (.lstatSync (node/require "fs") path)))
    ::mem-col 0
    ::highlighter nil
    ::keymap {}})
@@ -220,7 +222,7 @@
   (-> buffer
     (set-dirty false)
     update-modified))
-  
+
 (defn force-reopen-file
   "Reopening file in buffer,
   ignore dirty flag."
@@ -229,7 +231,7 @@
     (let [sl (create-slider-from-file filepath)
           p (-> (get-slider) slider/get-point)]
       (-> buffer
-        (set-slider sl)      
+        (set-slider sl)
         (set-dirty false)
         update-modified
         (set-point p)))

@@ -1,5 +1,5 @@
 (ns dk.salza.liq.apps.typeaheadapp
-  (:require [dk.salza.liq.slider :refer [get-char left right get-point string-ahead]]
+  (:require [dk.salza.liq.slider :refer [get-char left right get-point string-ahead create forward-line end set-mark insert beginning end-of-line beginning-of-line]]
             [dk.salza.liq.editor :as editor]
             [clojure.string :as str]))
 

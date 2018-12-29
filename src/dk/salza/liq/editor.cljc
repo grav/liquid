@@ -17,10 +17,12 @@
             [dk.salza.liq.window :as window]
             [dk.salza.liq.tools.util :as util]
             [dk.salza.liq.clojureutil :as clojureutil]
-            [clojure.java.io :as io]
+            #?(:clj [clojure.java.io :as io])
             [dk.salza.liq.coreutil :refer [doto-first rotate bump get-match remove-item]]
             [dk.salza.liq.logging :as logging]
             [dk.salza.liq.tools.cshell :as cshell]
+            #?(:clj [clojure.repl :as repl])
+            #?(:cljs [cljs.repl :as repl])
             [clojure.string :as str]))
 
 (def top-of-window
@@ -1058,7 +1060,8 @@
   (let [[alias funstr] (str/split (if (re-find #"/" funname) funname (str "/" funname)) #"/")
         cp (if (> (count alias) 0)
              (clojureutil/get-class-path (current-buffer) alias)
-             (re-find #"[^/\n ]*(?=/)" (with-out-str (clojure.repl/find-doc funstr))))
+             (re-find #"[^/\n ]*(?=/)" (with-out-str #?(:clj (repl/find-doc funstr)
+                                                        :cljs nil))))
         filepath (when (> (count cp) 0) (clojureutil/get-file-path (current-buffer) cp))]
     (when filepath (find-file filepath))
     (beginning-of-buffer)
@@ -1068,14 +1071,15 @@
   
 (defn get-available-functions
   []
-  (let [content (get-content)]
-    (concat 
-      (apply concat
-             (for [[fullmatch nsmatch aliasmatch] (re-seq #"\[([^ ]*) :as ([^]]*)\]" content)]
-               (when (resolve (symbol aliasmatch))
-                 (for [f (keys (ns-publics (symbol nsmatch)))]
-                   (str "(" aliasmatch "/" f ")")))))
-      (map #(str "(" % ")") (keys (ns-publics (symbol "clojure.core")))))))
+  #?(:clj (let [content (get-content)]
+            (concat
+              (apply concat
+                     (for [[fullmatch nsmatch aliasmatch] (re-seq #"\[([^ ]*) :as ([^]]*)\]" content)]
+                       (when (resolve (symbol aliasmatch))
+                         (for [f (keys (ns-publics (symbol nsmatch)))]
+                           (str "(" aliasmatch "/" f ")")))))
+              (map #(str "(" % ")") (keys (ns-publics (symbol "clojure.core"))))))
+     :cljs (throw (js/Error. "not implemented"))))
 
 (defn context-action
   []

@@ -1,9 +1,9 @@
 (ns dk.salza.liq.core
   (:require [clojure.string :as str]
             [dk.salza.liq.adapters.tty :as tty]
-            [dk.salza.liq.adapters.jframeadapter :as jframeadapter]
+            #?(:clj [dk.salza.liq.adapters.jframeadapter :as jframeadapter])
             [dk.salza.liq.adapters.ghostadapter :as ghostadapter]
-            [dk.salza.liq.adapters.webadapter :as webadapter]
+            #?(:clj [dk.salza.liq.adapters.webadapter :as webadapter])
             [dk.salza.liq.syntaxhl.clojuremdhl :as clojuremdhl]
             [dk.salza.liq.tools.fileutil :as fileutil]
             [dk.salza.liq.tools.cshell :as cshell]

@@ -2,9 +2,9 @@
   "A namespace for shell like utils
   in clojure style."
   (:require [clojure.string :as str]
-            [clojure.java.io :as io])
-  (:import [java.lang ProcessBuilder]
-           [java.util.concurrent TimeUnit]))
+            #?(:clj [clojure.java.io :as io]))
+  #?(:clj (:import [java.lang ProcessBuilder]
+                   [java.util.concurrent TimeUnit])))
 
 (def current-dir (atom (System/getProperty "user.dir")))
 (def current-process (atom nil))
