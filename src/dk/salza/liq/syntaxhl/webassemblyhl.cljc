@@ -1,5 +1,5 @@
 (ns dk.salza.liq.syntaxhl.webassemblyhl
-  (:require [dk.salza.liq.slider :refer :all :rename {create create-slider}]))
+  (:require [dk.salza.liq.slider :refer [get-char left right get-point string-ahead]]))
 
 (defn next-face
   [sl face]

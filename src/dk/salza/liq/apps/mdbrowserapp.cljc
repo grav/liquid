@@ -1,14 +1,14 @@
 (ns dk.salza.liq.apps.mdbrowserapp
   (:require [clojure.java.io :as io]
             [dk.salza.liq.buffer :as buffer]
-            [dk.salza.liq.slider :refer :all]
+            [dk.salza.liq.slider :refer [get-char left right get-point string-ahead get-context get-content beginning? end?]]
             [dk.salza.liq.editor :as editor]
             [dk.salza.liq.apps.promptapp :as promptapp]
             [dk.salza.liq.extensions.headlinenavigator]
             [dk.salza.liq.extensions.linenavigator]
             [dk.salza.liq.syntaxhl.clojuremdhl :as clojuremdhl]
             [dk.salza.liq.logging :as logging]
-            [dk.salza.liq.coreutil :refer :all]))
+            #_[dk.salza.liq.coreutil :refer :all]))
 
 (def navigate (atom nil))
 

@@ -4,8 +4,8 @@
             [dk.salza.liq.apps.promptapp :as promptapp]
             [dk.salza.liq.apps.textapp :as textapp]
             [dk.salza.liq.apps.typeaheadapp :as typeaheadapp]
-            [dk.salza.liq.slider :refer :all]
-            [dk.salza.liq.coreutil :refer :all]
+            [dk.salza.liq.slider :refer [get-char left right get-point string-ahead]]
+            #_[dk.salza.liq.coreutil :refer :all]
             [clojure.string :as str]))
 
 

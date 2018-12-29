@@ -1,5 +1,5 @@
 (ns dk.salza.liq.apps.typeaheadapp
-  (:require [dk.salza.liq.slider :refer :all]
+  (:require [dk.salza.liq.slider :refer [get-char left right get-point string-ahead]]
             [dk.salza.liq.editor :as editor]
             [clojure.string :as str]))
 
@@ -87,8 +87,8 @@
    "C-i" prev-res
    "\n" execute
    " " #(update-search " ")
-   :selfinsert update-search
-   })
+   :selfinsert update-search})
+
 
 (defn run
   "Items is a list of items.

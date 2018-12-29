@@ -1,5 +1,5 @@
 (ns dk.salza.liq.extensions.folding
-  (:require [dk.salza.liq.slider :refer :all]
+  (:require [dk.salza.liq.slider :refer [get-char left right get-point string-ahead]]
             [clojure.string :as str]))
 
 (defn get-headline-level

@@ -18,7 +18,7 @@
             [dk.salza.liq.tools.util :as util]
             [dk.salza.liq.clojureutil :as clojureutil]
             [clojure.java.io :as io]
-            [dk.salza.liq.coreutil :refer :all]
+            [dk.salza.liq.coreutil :refer [doto-first rotate bump get-match remove-item]]
             [dk.salza.liq.logging :as logging]
             [dk.salza.liq.tools.cshell :as cshell]
             [clojure.string :as str]))

@@ -1,7 +1,7 @@
 (ns dk.salza.liq.window
   (:require [dk.salza.liq.buffer :as buffer]
             [dk.salza.liq.tools.fileutil :as futil]
-            [dk.salza.liq.slider :refer :all :rename {create create-slider}]))
+            [dk.salza.liq.slider :refer [get-char left right get-point string-ahead create]]))
 
 ;     123456789012345
 ;    1|abc--|abcdef--

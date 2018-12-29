@@ -20,7 +20,7 @@
   changes the buffer will return a new one."
   (:require [dk.salza.liq.slider :as slider]
             [dk.salza.liq.tools.fileutil :as fileutil]
-            [dk.salza.liq.coreutil :refer :all]
+            #_[dk.salza.liq.coreutil :refer :all]
             [clojure.java.io :as io]
             [clojure.string :as str]))
 

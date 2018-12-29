@@ -1,7 +1,7 @@
 (ns dk.salza.liq.extensions.folding-test
   (:require [clojure.test :refer :all]
             [dk.salza.liq.extensions.folding :refer :all]
-            [dk.salza.liq.slider :refer :all]
+            [dk.salza.liq.slider :refer [get-char left right get-point string-ahead]]
             [dk.salza.liq.helper :refer :all]))
 
 (deftest get-headline-level-test

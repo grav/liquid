@@ -2,7 +2,7 @@
   (:require [dk.salza.liq.editor :as editor]
             [clojure.java.io :as io]
             [clojure.string :as str]
-            [dk.salza.liq.tools.cshell :refer :all]))
+            [dk.salza.liq.tools.cshell :refer [cmdseq]]))
 ;;  (:use [dk.salza.liq.tools.cshell]))
 
 (defmacro c

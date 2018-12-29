@@ -17,7 +17,7 @@
             [dk.salza.liq.apps.typeaheadapp :as typeaheadapp]
             [dk.salza.liq.editor :as editor]
             [dk.salza.liq.logging :as logging])
-  (:gen-class))
+  #?(:clj (:gen-class)))
 
 (set! *print-length* 200)
 

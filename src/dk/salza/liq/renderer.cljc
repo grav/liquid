@@ -1,12 +1,12 @@
 (ns dk.salza.liq.renderer
   (:require [dk.salza.liq.tools.fileutil :as fileutil]
-            [dk.salza.liq.coreutil :refer :all]
+            #_[dk.salza.liq.coreutil :refer :all]
             [dk.salza.liq.slider :as slider]
             [dk.salza.liq.buffer :as buffer]
             [dk.salza.liq.window :as window]
             [dk.salza.liq.editor :as editor]
             [clojure.string :as str]
-            [dk.salza.liq.slider :refer :all]))
+            [dk.salza.liq.slider :refer [get-char left right get-point string-ahead set-point get-mark set-mark update-top-of-window set-meta insert get-after-list]]))
 
 (defn- apply-syntax-highlight
   [sl rows towid cursor-color syntaxhighlighter active]

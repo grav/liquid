@@ -1,6 +1,6 @@
 (ns dk.salza.liq.performance-test
   (:require [clojure.test :refer :all]
-            [dk.salza.liq.slider :refer :all]
+            [dk.salza.liq.slider :refer [get-char left right get-point string-ahead]]
             [dk.salza.liq.tools.util :as util]
             [dk.salza.liq.helper :refer :all]))
 

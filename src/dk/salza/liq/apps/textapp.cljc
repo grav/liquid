@@ -1,6 +1,6 @@
 (ns dk.salza.liq.apps.textapp
   (:require [dk.salza.liq.editor :as editor]
-            [dk.salza.liq.slider :refer :all]
+            [dk.salza.liq.slider :refer [get-char left right get-point string-ahead]]
             [dk.salza.liq.apps.promptapp :as promptapp]
             [dk.salza.liq.extensions.headlinenavigator]
             [dk.salza.liq.extensions.linenavigator]
@@ -11,7 +11,7 @@
             [dk.salza.liq.syntaxhl.xmlhl :as xmlhl]
             [dk.salza.liq.syntaxhl.webassemblyhl :as webassemblyhl]
             [dk.salza.liq.syntaxhl.latexhl :as latexhl]
-            [dk.salza.liq.coreutil :refer :all]))
+            #_[dk.salza.liq.coreutil :refer :all]))
 
 (def keymap-insert (atom {}))
 (def keymap-navigation (atom {}))

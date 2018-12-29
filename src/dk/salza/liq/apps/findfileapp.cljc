@@ -3,7 +3,7 @@
             [clojure.java.io :as io]
             [dk.salza.liq.editor :as editor]
             [dk.salza.liq.tools.fileutil :as fileutil]
-            [dk.salza.liq.coreutil :refer :all]))
+            #_[dk.salza.liq.coreutil :refer :all]))
 
 (def ^:private state (atom {}))
 

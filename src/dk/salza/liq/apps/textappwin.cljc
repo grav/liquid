@@ -10,7 +10,7 @@
             [dk.salza.liq.syntaxhl.xmlhl :as xmlhl]
             [dk.salza.liq.syntaxhl.webassemblyhl :as webassemblyhl]
             [dk.salza.liq.syntaxhl.latexhl :as latexhl]
-            [dk.salza.liq.coreutil :refer :all]))
+            #_[dk.salza.liq.coreutil :refer :all]))
 
 (def keymap (atom {}))
 
@@ -74,8 +74,8 @@
                          (re-matches #"^.*\.xml$" filepath) xmlhl/next-face
                          (re-matches #"^.*\.wat$" filepath) webassemblyhl/next-face
                          (re-matches #"^.*\.tex$" filepath) latexhl/next-face
-                          :else (editor/get-default-highlighter)) ;; In other cases use clojure/markdown
-          ]
+                          :else (editor/get-default-highlighter))] ;; In other cases use clojure/markdown
+
       (editor/create-buffer-from-file filepath)
       (editor/set-keymap @keymap)
       (editor/set-highlighter syntaxhl))))

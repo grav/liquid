@@ -4,13 +4,13 @@
             [dk.salza.liq.apps.typeaheadapp :as typeaheadapp]
             [dk.salza.liq.apps.promptapp :as promptapp]
             [dk.salza.liq.buffer :as buffer]
-            [dk.salza.liq.slider :refer :all]
+            [dk.salza.liq.slider :refer [get-char left right get-point string-ahead]]
             [dk.salza.liq.extensions.headlinenavigator]
             [dk.salza.liq.extensions.linenavigator]
             [dk.salza.liq.extensions.folding :as folding]
             [dk.salza.liq.syntaxhl.clojuremdhl :as clojuremdhl]
             [dk.salza.liq.logging :as logging]
-            [dk.salza.liq.coreutil :refer :all]
+            #_[dk.salza.liq.coreutil :refer :all]
             [clojure.string :as str]))
 
 (def navigate (atom nil))
