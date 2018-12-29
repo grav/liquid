@@ -1,0 +1,2 @@
+{:main dk.salza.liq.core
+ :target :nodejs}
