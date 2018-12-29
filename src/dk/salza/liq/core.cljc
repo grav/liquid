@@ -1,6 +1,5 @@
 (ns dk.salza.liq.core
-  (:require [clojure.java.io :as io]
-            [clojure.string :as str]
+  (:require [clojure.string :as str]
             [dk.salza.liq.adapters.tty :as tty]
             [dk.salza.liq.adapters.jframeadapter :as jframeadapter]
             [dk.salza.liq.adapters.ghostadapter :as ghostadapter]

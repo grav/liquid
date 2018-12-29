@@ -1,6 +1,6 @@
 (ns dk.salza.liq.tools.util
   (:require [clojure.string :as str]
-            [clojure.java.io :as io]
+            #_[clojure.java.io :as io]
             [clojure.test :as test]))
 
 (defn now
@@ -17,7 +17,7 @@
                   (.redirectErrorStream true))
         process (.start builder)
                                         ;res (atom [])
-        lineprocessor (future (doseq [line (line-seq (io/reader (.getInputStream process)))]
+        #_#_lineprocessor (future (doseq [line (line-seq (io/reader (.getInputStream process)))]
                                         ;(swap! res conj line)))
                                 (println line)))
                                         ;(println "-" line)))
@@ -81,12 +81,12 @@
           (keyword (str normalized num))
           (recur (inc num)))))))
 
-(defn read-lines-from-file
+#_(defn read-lines-from-file
   [filepath]
   (vec (with-open [r (io/reader filepath)]
     (doall (line-seq r)))))
 
-(defn save-lines-to-file
+#_(defn save-lines-to-file
   [filepath lines]
   (with-open [wrtr (io/writer filepath)]
     (.write wrtr (clojure.string/join "\n" lines))))

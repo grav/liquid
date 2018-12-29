@@ -829,7 +829,8 @@
                    (right-until (partial re-find #"[\w\.~(\[/$]"))
                    (set-mark "contextstart")) ;right (set-mark "contextstart")) (re-find #"\w" "  x")
         sl1 (-> sl0 (right-until (partial re-find #"[ |\n|\"]")))
-        word (str/replace (get-region sl1 "contextstart") #"(\$HOME|~)" (System/getProperty "user.home"))]
+        word (str/replace (get-region sl1 "contextstart") #"(\$HOME|~)" #?(:clj (System/getProperty "user.home")
+                                                                           :cljs (.-HOME js/process.env)))]
     (cond (re-matches #"https?://.*" word) {:type :url :value word}
           (re-matches #";?#" word) {:type :fold :value "fold"}
           (re-matches #"\(.*" word) {:type :function :value (str/replace word #"(\(|\))" "")}

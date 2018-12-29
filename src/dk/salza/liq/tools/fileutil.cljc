@@ -1,38 +1,44 @@
 (ns dk.salza.liq.tools.fileutil
   (:require [clojure.string :as str]
-            [clojure.java.io :as io]
-            [clojure.test :as test]))
+            #?(:clj [clojure.java.io :as io])
+            [clojure.test :as test]
+            #?(:cljs [cljs.nodejs :as node])))
 
 (defn file
   ([folder filename]
-    (str (io/file folder filename)))
+   (str (io/file folder filename)))
   ([filepath]
-    (str (io/file filepath))))
+   (str (io/file filepath))))
 
 (defn filename
   [filepath]
-  (str (.getName (io/file filepath))))
+  #?(:clj  (str (.getName (io/file filepath)))
+     :cljs (.baseName (node/require "path") filepath)))
 
 (defn parent
-  [filepath]
+  [filepath])
   ;; if root return nil
-  )
+
 
 (defn absolute
   [filepath]
-  (.getAbsolutePath (io/file filepath)))
+  #?(:clj (.getAbsolutePath (io/file filepath))
+     :cljs (.resolve (node/require "path") filepath)))
 
 (defn canonical
   [filepath]
-  (.getCanonicalPath (io/file filepath)))
+  #?(:clj (.getCanonicalPath (io/file filepath))
+     :cljs (absolute filepath)))
 
 (defn folder?
   [filepath]
-  (.isDirectory (io/file filepath)))
+  #?(:clj  (.isDirectory (io/file filepath))
+     :cljs (.isDirectory (.lstatSync (node/require "fs") filepath))))
 
 (defn file?
   [filepath]
-  (.isFile (io/file filepath)))
+  #?(:clj  (.isFile (io/file filepath))
+     :cljs (.isFile (.lstatSync (node/require "fs") filepath))))
 
 (defn exists?
   [filepath]
@@ -42,31 +48,41 @@
   [filename]
   (str (io/file (System/getProperty "java.io.tmpdir") filename)))
 
+(defn list-files [filepath]
+  #?(:clj (.listFiles (io/file filepath))
+     :cljs (js->clj (.readdirSync (node/require "fs")))))
+
 (defn get-roots
   []
-  (map str (java.io.File/listRoots)))
+  #?(:clj (map str (java.io.File/listRoots))
+     :cljs (throw (js/Error. "not implemented"))))
 
 (defn get-children
   [filepath]
-  (map str (.listFiles (io/file filepath))))
+  #?(:clj (map str (.listFiles (io/file filepath)))
+     :cljs (throw (js/Error. "not implemented"))))
 
 (defn get-folders
   [filepath]
-  (map str (filter #(.isDirectory %) (.listFiles (io/file filepath)))))
+  (map str (filter folder? (list-files filepath))))
 
 (defn get-files
   [filepath]
-  (filter file? (map str (.listFiles (io/file filepath)))))
-  
+  (filter file? (map str (list-files filepath))))
+
 (defn read-file-to-list
   [filepath]
-  (when (file? filepath)
-    (with-open [r (io/reader filepath)]
-      (rest (apply concat (map #(conj (map str (seq %)) "\n") (doall (line-seq r))))))))
+  #?(:clj (when (file? filepath)
+            (with-open [r (io/reader filepath)]
+              (rest (apply concat (map #(conj (map str (seq %)) "\n") (doall (line-seq r)))))))
+     :cljs (throw (js/Error. "not implemented"))))
 
 (defn write-file
   [filepath content]
-  (when (not (.isDirectory (io/file filepath)))
-    (with-open [writer (io/writer filepath)]
-      (.write writer content))))
+  (when (not (folder? filepath))
+    #?(:clj (with-open [writer (io/writer filepath)]
+              (.write writer content))
+       :cljs (.writeFileSync (node/require "fs")
+                             filepath
+                             content))))
   
